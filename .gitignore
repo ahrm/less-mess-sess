@@ -1,2 +1,5 @@
 my_data.py
 *.pyc
+*.log
+*.db
+temp/*

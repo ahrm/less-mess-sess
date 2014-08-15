@@ -1,9 +1,17 @@
 # -*- coding: utf8 -*-
 
 import myutils
-
+from database_manager import load_course_from_db, save_course_to_db
+from logtest import log23
 
 class ClassTime:
+
+    @staticmethod
+    def from_string(string):
+        tokens = string.split('!')
+        #print len(tokens)
+        log23.write(string + '\n')
+        return ClassTime(tokens[0], tokens[1], tokens[2])
     week_day_order = {
         u'شنبه': 0,
         u'يک شنبه': 1,
@@ -28,6 +36,9 @@ class ClassTime:
     def __str__(self):
         return self.day + 's from ' + self.start + ' to ' + self.end
 
+    def str2(self):
+        return self.day + '!' + self.start + '!' + self.end
+
     def __cmp__(self, other):
         selfsplitted = self.start.split(':')
         othersplitted = other.start.split(':')
@@ -44,6 +55,10 @@ class ClassTime:
 
 
 class Course:
+
+    @staticmethod
+    def get_from_db():
+        return load_course_from_db()
 
     class CourseSession:
 
@@ -69,10 +84,7 @@ class Course:
                  capacity=None,
                  enrolled_num=None):
         self.name = course_name
-        if (prof_name):
-            self.professor = prof_name[0] + ' ' + prof_name[1]
-        else:
-            self.professor = None
+        self.professor = prof_name
         self.course_hours = course_hours
         self.final_exam_date = final_exam_date
         self.final_exam_time = final_exam_time
@@ -94,11 +106,18 @@ class Course:
 
     def __hash__(self):
         return hash(self.name) + hash(self.professor) +\
-            hash(self.final_exam_date)
+            hash(self.final_exam_date.__str__())
 
     def __str__(self):
-        r = 'Course Name: ' + self.name.decode('utf8') + '\n' + \
-            'Professor: ' + self.professor.__str__().decode('utf8') + '\n'
+        if self.professor is None:
+            pname = ''
+        else:
+            pname = self.professor
+        r = u'Course Name: ' + self.name + '\n' + \
+            u'Professor: ' + pname + '\n'
         for class_time in self.course_hours:
             r += (class_time.__str__() + ' ')
         return r + '\n_________________________________________________________'
+
+    def save_to_db(self):
+        save_course_to_db(self)

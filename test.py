@@ -86,10 +86,10 @@ for i in range(1, len(elems)):  # 10 -> len(elems)
     # todo: handle the case there are more than one teachers
     try:
         teacher_string = browser.find_by_xpath(
-            course_teacher_name_xpath).text.encode('utf8')
+            course_teacher_name_xpath).text  # .encode('utf8')
         prof_name_match = re.match(pyregex.professor_name_re, teacher_string)
-        prof_name = (prof_name_match.group('fname'),
-                     prof_name_match.group('lname'))
+        prof_name = ' '.join((prof_name_match.group('fname'),
+                              prof_name_match.group('lname')))
     except Exception as e:
         teacher_string = None
         prof_name_match = None
@@ -97,10 +97,10 @@ for i in range(1, len(elems)):  # 10 -> len(elems)
 
     try:
         course_name = browser.find_by_xpath(
-            course_name_xpath).text.encode('utf8')
+            course_name_xpath).text  # .encode('utf8')
     except Exception as e:
         course_name = None
-    
+
     try:
 
         course_hours_string = fa2en_numbers(browser.find_by_xpath(
@@ -159,41 +159,42 @@ for i in range(1, len(elems)):  # 10 -> len(elems)
 
     try:
         course_id_string = browser.find_by_xpath(
-            course_id_xpath).text.encode('utf8')
+            course_id_xpath).text  # .encode('utf8')
     except Exception as e:
         course_id_string = None
 
     try:
         course_type_string = browser.find_by_xpath(
-            course_type_xpath).text.encode('utf8')
+            course_type_xpath).text  # .encode('utf8')
     except Exception as e:
         course_type_string = None
     try:
-        vahed_string = browser.find_by_xpath(vahed_xpath).text.encode('utf8')
+        vahed_string = browser.find_by_xpath(vahed_xpath).text
     except Exception as e:
         vahed_string = None
     try:
-        group_string = browser.find_by_xpath(group_xpath).text.encode('utf8')
+        group_string = browser.find_by_xpath(
+            group_xpath).text  # .encode('utf8')
     except Exception as e:
         group_string = None
     try:
         course_sex_string = browser.find_by_xpath(
-            course_sex_xpath).text.encode('utf8')
+            course_sex_xpath).text  # .encode('utf8')
     except Exception as e:
         course_sex_string = None
     try:
         course_allowed_fields_string = browser.find_by_xpath(
-            course_allowed_fields_xpath).text.encode('utf8')
+            course_allowed_fields_xpath).text  # .encode('utf8')
     except Exception as e:
         course_allowed_fields_string = None
     try:
         course_capacity_string = browser.find_by_xpath(
-            course_capacity_xpath).text.encode('utf8')
+            course_capacity_xpath).text
     except Exception as e:
         course_capacity_string = None
     try:
         course_enrolled_string = browser.find_by_xpath(
-            course_enrolled_xpath).text.encode('utf8')
+            course_enrolled_xpath).text
     except Exception as e:
         course_enrolled_string = None
 
@@ -206,10 +207,10 @@ for i in range(1, len(elems)):  # 10 -> len(elems)
                                course_type_string,
                                course_sex_string,
                                course_allowed_fields_string,
-                               vahed_string,
+                               int(fa2en_numbers(vahed_string)),
                                group_string,
-                               course_capacity_string,
-                               course_enrolled_string
+                               int(fa2en_numbers(course_capacity_string)),
+                               int(fa2en_numbers(course_enrolled_string))
                                )
     courses.append(new_course)
     sessions += new_course.get_sessions()
@@ -217,10 +218,14 @@ for i in range(1, len(elems)):  # 10 -> len(elems)
 
     browser.back()
 
-sessions.sort()
-filtered_courses = filter(profname_filter('زهره'), courses)
-for session in sessions:
-    log.write(session.parent_course.__str__() + '\n')
-for fcourse in filtered_courses:
-    log2.write(fcourse.__str__() + '\n')
+# sessions.sort()
+#filtered_courses = filter(profname_filter('زهره'), courses)
+# for session in sessions:
+#     log.write(session.parent_course.__str__() + '\n')
+# for fcourse in filtered_courses:
+#     log2.write(fcourse.__str__() + '\n')
+
+for cour in courses:
+    print 'writing'
+    cour.save_to_db()
 print 'done!'
