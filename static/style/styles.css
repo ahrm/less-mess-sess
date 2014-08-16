@@ -19,7 +19,36 @@ th:hover,td:hover {
 	float: right;
 }
 
+.sellistelem{
+	background-color: #168F10;
+}
+.sellistelem:hover{
+	background-color: #57A353;
+}
+
 .buttonstyle{
 	float: right;
 }
 
+.danger{
+	background-color: #ff0000
+}
+
+.warning{
+	background-color: #aaaa00
+}
+
+.good{
+	background-color: #00ff00
+}
+
+.testclass{
+	background-color: #ff00ff;
+}
+
+.sidebar{
+	
+	position: fixed;
+	left: 20px;
+	top: 0;
+}

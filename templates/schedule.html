@@ -1,0 +1,399 @@
+<html>
+	<head>
+		<title>lessmesssess-schedule</title>
+		<link rel="stylesheet" type="text/css" href="/static/style/styles.css">
+	</head>
+	<body dir="rtl" onload="on_load()">
+		<table border="1" class="tableelem">
+			<tr>
+				<th></th>
+				<th>7:30-9</th>
+				<th>9-10:30</th>
+				<th>10:30-12</th>
+				<th>12-1:30</th>
+				<th>1:30-3</th>
+				<th>3-4:30</th>
+				<th>4:30-6</th>
+				<th>6-7:30</th>
+			</tr>
+			<tr>
+				<th>شنبه</th>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(0,(7,30),(9,0)) %}
+							<p>{{course.get_table_text(0,(7,30),(9,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(0,(9,0),(10,30)) %}
+							<p>{{course.get_table_text(0,(9,0),(10,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(0,(10,30),(12,0)) %}
+							<p>{{course.get_table_text(0,(10,30),(12,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(0,(12,0),(13,30)) %}
+							<p>{{course.get_table_text(0,(12,0),(13,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(0,(13,30),(15,0)) %}
+							<p>{{course.get_table_text(0,(13,30),(15,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(0,(15,0),(16,30)) %}
+							<p>{{course.get_table_text(0,(15,0),(16,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(0,(16,30),(18,0)) %}
+							<p>{{course.get_table_text(0,(16,30),(18,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(0,(18,0),(19,30)) %}
+							<p>{{course.get_table_text(0,(18,0),(19,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>یک شنبه</th>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(1,(7,30),(9,0)) %}
+							<p>{{course.get_table_text(1,(7,30),(9,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(1,(9,0),(10,30)) %}
+							<p>{{course.get_table_text(1,(9,0),(10,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(1,(10,30),(12,0)) %}
+							<p>{{course.get_table_text(1,(10,30),(12,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(1,(12,0),(13,30)) %}
+							<p>{{course.get_table_text(1,(12,0),(13,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(1,(13,30),(15,0)) %}
+							<p>{{course.get_table_text(1,(13,30),(15,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(1,(15,0),(16,30)) %}
+							<p>{{course.get_table_text(1,(15,0),(16,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(1,(16,30),(18,0)) %}
+							<p>{{course.get_table_text(1,(16,30),(18,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(1,(18,0),(19,30)) %}
+							<p>{{course.get_table_text(1,(18,0),(19,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>دو شنبه</th>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(2,(7,30),(9,0)) %}
+							<p>{{course.get_table_text(2,(7,30),(9,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(2,(9,0),(10,30)) %}
+							<p>{{course.get_table_text(2,(9,0),(10,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(2,(10,30),(12,0)) %}
+							<p>{{course.get_table_text(2,(10,30),(12,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(2,(12,0),(13,30)) %}
+							<p>{{course.get_table_text(2,(12,0),(13,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(2,(13,30),(15,0)) %}
+							<p>{{course.get_table_text(2,(13,30),(15,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(2,(15,0),(16,30)) %}
+							<p>{{course.get_table_text(2,(15,0),(16,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(2,(16,30),(18,0)) %}
+							<p>{{course.get_table_text(2,(16,30),(18,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(2,(18,0),(19,30)) %}
+							<p>{{course.get_table_text(2,(18,0),(19,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>سه شنبه</th>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(3,(7,30),(9,0)) %}
+							<p>{{course.get_table_text(3,(7,30),(9,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(3,(9,0),(10,30)) %}
+							<p>{{course.get_table_text(3,(9,0),(10,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(3,(10,30),(12,0)) %}
+							<p>{{course.get_table_text(3,(10,30),(12,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(3,(12,0),(13,30)) %}
+							<p>{{course.get_table_text(3,(12,0),(13,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(3,(13,30),(15,0)) %}
+							<p>{{course.get_table_text(3,(13,30),(15,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(3,(15,0),(16,30)) %}
+							<p>{{course.get_table_text(3,(15,0),(16,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(3,(16,30),(18,0)) %}
+							<p>{{course.get_table_text(3,(16,30),(18,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(3,(18,0),(19,30)) %}
+							<p>{{course.get_table_text(3,(18,0),(19,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>چهار شنبه</th>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(4,(7,30),(9,0)) %}
+							<p>{{course.get_table_text(4,(7,30),(9,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(4,(9,0),(10,30)) %}
+							<p>{{course.get_table_text(4,(9,0),(10,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(4,(10,30),(12,0)) %}
+							<p>{{course.get_table_text(4,(10,30),(12,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(4,(12,0),(13,30)) %}
+							<p>{{course.get_table_text(4,(12,0),(13,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(4,(13,30),(15,0)) %}
+							<p>{{course.get_table_text(4,(13,30),(15,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(4,(15,0),(16,30)) %}
+							<p>{{course.get_table_text(4,(15,0),(16,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(4,(16,30),(18,0)) %}
+							<p>{{course.get_table_text(4,(16,30),(18,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(4,(18,0),(19,30)) %}
+							<p>{{course.get_table_text(4,(18,0),(19,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>پنج شنبه</th>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(5,(7,30),(9,0)) %}
+							<p>{{course.get_table_text(5,(7,30),(9,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(5,(9,0),(10,30)) %}
+							<p>{{course.get_table_text(5,(9,0),(10,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(5,(10,30),(12,0)) %}
+							<p>{{course.get_table_text(5,(10,30),(12,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(5,(12,0),(13,30)) %}
+							<p>{{course.get_table_text(5,(12,0),(13,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(5,(13,30),(15,0)) %}
+							<p>{{course.get_table_text(5,(13,30),(15,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(5,(15,0),(16,30)) %}
+							<p>{{course.get_table_text(5,(15,0),(16,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(5,(16,30),(18,0)) %}
+							<p>{{course.get_table_text(5,(16,30),(18,0))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					{% for course in selected_courses %}
+						{% if course.is_in_time(5,(18,0),(19,30)) %}
+							<p>{{course.get_table_text(5,(18,0),(19,30))}}</p>
+						{% endif %}
+					{% endfor %}
+				</td>
+			</tr>
+
+		</table>
+		<script type="text/javascript">
+			function on_load()
+			{
+				
+				var table_data = document.getElementsByTagName('td');
+				for (var i = 0;i<table_data.length;i++)
+				{
+					var sub_elems = table_data[i].getElementsByTagName('p').length;
+					if (sub_elems > 1)
+					{
+						table_data[i].className = "danger";
+					}
+					else if (sub_elems == 0)
+					{
+						table_data[i].className = "good";
+					}
+					else
+					{
+						table_data[i].className = "warning";
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

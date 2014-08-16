@@ -1,34 +1,55 @@
 from flask import Flask, render_template, request, redirect, session, url_for
 from course import Course
 from course_filters import *
+from logtest import log23
 
 courses = Course.get_from_db()
 
 app = Flask(__name__)
 
 selected_user_courses = {}
+departments = ['computer', 'physics']
 
+
+# @app.route('/')
+# def main_page():
+#     user = ''
+#     if 'username' in session:
+#         user = session['username']
+#     return render_template('main_template.html',
+#                            selected_courses=[],
+#                            unselected_courses=courses,
+#                            user=user)
+
+def schedule():
+    reqargs = request.args.getlist('clsl')
+    selected_courses = Course.select_courses(courses, reqargs)
+    return render_template('schedule.html',selected_courses=selected_courses)
 
 @app.route('/')
-def main_page():
-    user = ''
-    if 'username' in session:
-        user = session['username']
-    return render_template('main_template.html',
-                           selected_courses=[],
-                           unselected_courses=courses,
-                           user=user)
+def handler():
+    button_string = request.args.get('btn')
+    if button_string == 'Schedule':
+        return schedule()
+    else:
+        return test()
+
+
+
 
 
 @app.route('/test')
 def test():
+
     reqargs = request.args.getlist('clsl')
 
+    department_string = request.args.get('dep')
     course_name_filter_string = request.args.get('cnf')
     prof_name_filter_string = request.args.get('pnf')
     course_day_filter_string = request.args.get('cdf')
     course_time_filter_string = request.args.get('ctf')
 
+    dep_filter = department_filter(department_string)
     course_name_filter = parse_courfilter_string(course_name_filter_string)
     prof_name_filter = parse_proffilter_string(prof_name_filter_string)
     course_day_filter = parse_dayfilter_string(course_day_filter_string)
@@ -37,7 +58,8 @@ def test():
     final_filter = and_filter(course_name_filter,
                               prof_name_filter,
                               course_day_filter,
-                              course_time_filter)
+                              course_time_filter,
+                              dep_filter)
 
     selected_courses = Course.select_courses(courses, reqargs)
     user = ''
@@ -55,7 +77,9 @@ def test():
                            filter_strings=[course_name_filter_string,
                                            prof_name_filter_string,
                                            course_day_filter_string,
-                                           course_time_filter_string])
+                                           course_time_filter_string,
+                                           department_string],
+                           departments=departments)
 
 
 @app.route('/login', methods=['POST', 'GET'])

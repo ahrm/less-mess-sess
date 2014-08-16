@@ -11,7 +11,7 @@ class ClassTime:
     def from_string(string):
         tokens = string.split('!')
         # print len(tokens)
-        log23.write(string + '\n')
+        #log23.write(string + '\n')
         return ClassTime(tokens[0], tokens[1], tokens[2])
     week_day_order = {
         u'شنبه': 0,
@@ -37,6 +37,9 @@ class ClassTime:
     def __str__(self):
         return self.day + u' ها از ' + self.start + u' تا ' + self.end
 
+    def __hash__(self):
+        return hash(self.day) + hash(self.start)
+
     def str2(self):
         return self.day + '!' + self.start + '!' + self.end
 
@@ -46,11 +49,24 @@ class ClassTime:
         return cmp((self.day_num, int(selfsplitted[0]), int(selfsplitted[1])),
                    (other.day_num, int(othersplitted[0]), int(othersplitted[1])))
 
+    def is_in_day(self, day):
+        if type(day) == int:
+            return self.day_num == day
+        else:
+            return self.day == day
+
     def is_in_range(self, start, end):
         return self.start_tup >= start and self.end_tup <= end
 
+    def intersects_with(self, start, end):
+        #log23.write('selfstart :' + self.start.__str__() + '\n' + start.__str__())
+        #log23.close()
+        return start <= self.start_tup < end or start < self.end_tup <= end
+    def get_table_text(self):
+        return self.start + u' تا ' + self.end
+
     # def __key__(self):
-    # 	start_times = self.start_time.split(':')
+    #   start_times = self.start_time.split(':')
     # return ClassTime.week_day_order[self.day] * 100000 + int(start_times[0])
     # * 1000 + int(start_times[1])
 
@@ -76,6 +92,7 @@ class Course:
 
     def __init__(self,
                  course_name,
+                 department,
                  prof_name=None,
                  course_hours=None,
                  final_exam_date=None,
@@ -89,6 +106,7 @@ class Course:
                  capacity=None,
                  enrolled_num=None):
         self.name = course_name
+        self.department = department
         self.professor = prof_name
         self.course_hours = course_hours
         self.final_exam_date = final_exam_date
@@ -110,8 +128,11 @@ class Course:
         return self.course_hours
 
     def __hash__(self):
-        return hash(self.name) + hash(self.professor) +\
+        r = hash(self.name) + hash(self.professor) +\
             hash(self.final_exam_date.__str__())
+        for classtime in self.course_hours:
+            r += hash(classtime)
+        return r
 
     def get_hash(self):
         return str(self.__hash__())
@@ -138,3 +159,14 @@ class Course:
 
     def save_to_db(self):
         save_course_to_db(self)
+    def get_table_text(self,day,start,end):
+        for cl_hour in self.course_hours:
+            if cl_hour.is_in_day(day) and cl_hour.intersects_with(start, end):
+                return self.name + u'|' +cl_hour.get_table_text()
+
+    def is_in_time(self, day, start, end):
+        
+        for cl_hour in self.course_hours:
+            if cl_hour.is_in_day(day) and cl_hour.intersects_with(start, end):
+                return True
+        return False

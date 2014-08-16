@@ -6,7 +6,8 @@
 	</head>
 	<body dir='rtl'>
 		<p>logged in as: {{user}}</p>
-		<form name="input" action="test" method="get">
+		<form name="input" action="" method="get">
+		<div>
 		{% for course in selected_courses + unselected_courses %}
 			
 			<div class="listelem" onclick="item_onclick(this)">
@@ -34,7 +35,7 @@
 					<tr>
 						<td>{{course.professor}}</td>
 						<td>{{course.get_class_time_string()}}</td>
-						<td>{{course.final_exam_date.strftime('%A %d %B %Y')}}</td>
+						<td>{{course.final_exam_date and course.final_exam_date.strftime('%A %d %B %Y')}}</td>
 						<td>{{course.get_final_exam_time_string()}}</td>
 						<td>{{course.allowed_sex}}</td>
 						<td>{{course.allowed_fields}}</td>
@@ -47,25 +48,40 @@
 			</div>
 			
 		{% endfor %}
-		<div dir='ltr'>
+		</div>
+		<div dir='ltr' class="sidebar">
 			<p>
-				Course Name Filter:
-				<input type="text" name="cnf" value="{{filter_strings[0] or ''}}">
+				<select name="dep">
+					{% for dep in departments%}
+						{% if dep == filter_strings[4] %}
+							<option value="{{dep}}" selected="selected">{{dep}}</option>
+						{% else %}
+							<option value="{{dep}}">{{dep}}</option>
+						{% endif %}
+					{% endfor %}
+				</select>
+			</p>
+			
+				<p>
+					Course Name Filter:
+					<input type="text" name="cnf" value="{{filter_strings[0] or ''}}">
 
-			</p>
-			<p>
-				Professor Name Filter:
-				<input type="text" name="pnf" value="{{filter_strings[1] or ''}}">
-			</p>
-			<p>
-				Course Day Filter:
-				<input type="text" name="cdf" value="{{filter_strings[2] or ''}}">
-			</p>
-			<p>
-				Course Time Filter:
-				<input type="text" name="ctf" value="{{filter_strings[3] or ''}}">
-			</p>
-			<input type="submit" value="Submit">
+				</p>
+				<p>
+					Professor Name Filter:
+					<input type="text" name="pnf" value="{{filter_strings[1] or ''}}">
+				</p>
+				<p>
+					Course Day Filter:
+					<input type="text" name="cdf" value="{{filter_strings[2] or ''}}">
+				</p>
+				<p>
+					Course Time Filter:
+					<input type="text" name="ctf" value="{{filter_strings[3] or ''}}">
+				</p>
+				<input type="submit" name="btn" value="Submit">
+				<input type="submit" name="btn" value="Schedule">
+			
 		</div>
 		
 		</form>

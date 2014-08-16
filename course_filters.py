@@ -4,6 +4,14 @@ import re
 from pyregex import course_range_re
 
 
+def department_filter(depname):
+    def res_filter(cour):
+        if cour.department == depname:
+            return True
+        return False
+    return res_filter
+
+
 def tiemrange_filter(start, end, include_nons=False):  # start,end = (hh,mm)
     def res_filter(cour):
         sessions = cour.get_class_sessions()
@@ -91,11 +99,11 @@ def not_filter(filter1):
     return res_filter
 
 
-def allways_true(course):
+def always_true(course):
     return True
 
 
-def allways_false(course):
+def always_false(course):
     return False
 
 
@@ -104,7 +112,7 @@ def parse_dayfilter_string(string):
         days = string.split(',')
         return day_filter([int(i) for i in days])
     except Exception as e:
-        return allways_true
+        return always_true
 
 
 def parse_timefilter_string(string):
@@ -122,7 +130,7 @@ def parse_timefilter_string(string):
             timerange_filters.append(temp_filter)
         return or_filter(*timerange_filters)
     except Exception as e:
-        return allways_true
+        return always_true
 
 
 def parse_proffilter_string(string):
@@ -135,7 +143,8 @@ def parse_proffilter_string(string):
             courprof_filters.append(temp_filter)
         return or_filter(*courprof_filters)
     except Exception as e:
-        return allways_true
+        return always_true
+
 
 def parse_courfilter_string(string):
     try:
@@ -147,6 +156,4 @@ def parse_courfilter_string(string):
             courprof_filters.append(temp_filter)
         return or_filter(*courprof_filters)
     except Exception as e:
-        return allways_true
-
-
+        return always_true
