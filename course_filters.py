@@ -40,6 +40,11 @@ def coursename_filter(name):
             return False
     return res_filter
 
+
+def cnf(name):
+    return coursename_filter(name)
+
+
 def profname_filter(name):
     course_re = re.compile('.*' + name + '.*')
 
@@ -63,6 +68,14 @@ def or_filter(filter1, filter2):
     def res_filter(cour):
         return filter1(cour) or filter2(cour)
     return res_filter
+
+
+def orf(filter1, filter2):
+    return or_filter(filter1, filter2)
+
+
+def andf(filter1, filter2):
+    return and_filter(filter1, filter2)
 
 
 def not_filter(filter1):

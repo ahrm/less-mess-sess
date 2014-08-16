@@ -4,12 +4,13 @@ import myutils
 from database_manager import load_course_from_db, save_course_to_db
 from logtest import log23
 
+
 class ClassTime:
 
     @staticmethod
     def from_string(string):
         tokens = string.split('!')
-        #print len(tokens)
+        # print len(tokens)
         log23.write(string + '\n')
         return ClassTime(tokens[0], tokens[1], tokens[2])
     week_day_order = {
@@ -34,7 +35,7 @@ class ClassTime:
         self.end_tup = (end_time_split[0], end_time_split[1])
 
     def __str__(self):
-        return self.day + 's from ' + self.start + ' to ' + self.end
+        return self.day + u' ها از ' + self.start + u' تا ' + self.end
 
     def str2(self):
         return self.day + '!' + self.start + '!' + self.end
@@ -59,6 +60,10 @@ class Course:
     @staticmethod
     def get_from_db():
         return load_course_from_db()
+
+    @staticmethod
+    def select_courses(course_list, course_hash_list):
+        return [cour for cour in course_list if cour.get_hash() in course_hash_list]
 
     class CourseSession:
 
@@ -107,6 +112,18 @@ class Course:
     def __hash__(self):
         return hash(self.name) + hash(self.professor) +\
             hash(self.final_exam_date.__str__())
+
+    def get_hash(self):
+        return str(self.__hash__())
+
+    def get_class_time_string(self):
+        r = ''
+        for class_time in self.course_hours:
+            r += (class_time.__str__() + ' | ')
+        return r
+
+    def get_final_exam_time_string(self):
+        return self.final_exam_time[0] + ' - ' + self.final_exam_time[1]
 
     def __str__(self):
         if self.professor is None:

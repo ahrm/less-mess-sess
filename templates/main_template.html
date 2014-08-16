@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<title>lessmesssess</title>
+		<link rel="stylesheet" type="text/css" href="/static/style/styles.css">
+		<script type="text/javascript" src="/static/js/scripts.js"></script>
+	</head>
+	<body dir='rtl'>
+		<p>logged in as: {{user}}</p>
+		<form name="input" action="test" method="get">
+		{% for course in selected_courses + unselected_courses %}
+			
+			<div class="listelem" onclick="item_onclick(this)">
+				{% if course in selected_courses %}
+					<input type="checkbox" name="clsl" value={{course.__hash__()}} class="buttonstyle" checked>
+				{% else %}
+					<input type="checkbox" name="clsl" value={{course.__hash__()}} class="buttonstyle">
+				{% endif %}
+				<hr>
+				<h3>{{ course.name }}</h3>
+				
+				<table border="1" width="1000px" class="tableelem">
+					<tr>
+						<th>استاد</th>
+						<th>ساعات تشکیل</th>
+						<th>تاریخ امتحان</th>
+						<th>ساعت امتحان</th>
+						<th>جنسیت</th>
+						<th>رشته های مجاز</th>
+						<th>واحد</th>
+						<th>ظرفیت</th>
+						<th>تعداد ثبت نام کرده</th>
+						<th>id</th>
+					</tr>
+					<tr>
+						<td>{{course.professor}}</td>
+						<td>{{course.get_class_time_string()}}</td>
+						<td>{{course.final_exam_date.strftime('%A %d %B %Y')}}</td>
+						<td>{{course.get_final_exam_time_string()}}</td>
+						<td>{{course.allowed_sex}}</td>
+						<td>{{course.allowed_fields}}</td>
+						<td>{{course.vahed}}</td>
+						<td>{{course.capacity}}</td>
+						<td>{{course.enrolled_num}}</td>
+						<td dir='ltr' tag="hash_id">{{course.__hash__()}}</td>
+					</tr>
+				</table>
+			</div>
+			
+		{% endfor %}
+		<p>
+			Course Name Filter:
+			<input type="text" name="cnf">
+
+		</p>
+		<p>
+			Professor Name Filter:
+			<input type="text" name="pnf">
+		</p>
+		<p>
+			Course Day Filter:
+			<input type="text" name="cdf">
+		</p>
+		<p>
+			Course Time Filter:
+			<input type="text" name="ctf">
+		</p>
+		<input type="submit" value="Submit">
+		
+		</form>
+	</body>
+</html>

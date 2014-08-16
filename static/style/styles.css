@@ -1,0 +1,25 @@
+table,td,th {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+th,td {
+	padding: 5px;
+}
+/*
+th:hover,td:hover {
+	color: #ff00ff
+}
+*/
+.listelem:hover  {
+	background-color: #eeeeee;
+}
+
+.listelem{
+	float: right;
+}
+
+.buttonstyle{
+	float: right;
+}
+
