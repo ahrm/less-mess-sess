@@ -47,24 +47,26 @@
 			</div>
 			
 		{% endfor %}
-		<p>
-			Course Name Filter:
-			<input type="text" name="cnf">
+		<div dir='ltr'>
+			<p>
+				Course Name Filter:
+				<input type="text" name="cnf" value="{{filter_strings[0] or ''}}">
 
-		</p>
-		<p>
-			Professor Name Filter:
-			<input type="text" name="pnf">
-		</p>
-		<p>
-			Course Day Filter:
-			<input type="text" name="cdf">
-		</p>
-		<p>
-			Course Time Filter:
-			<input type="text" name="ctf">
-		</p>
-		<input type="submit" value="Submit">
+			</p>
+			<p>
+				Professor Name Filter:
+				<input type="text" name="pnf" value="{{filter_strings[1] or ''}}">
+			</p>
+			<p>
+				Course Day Filter:
+				<input type="text" name="cdf" value="{{filter_strings[2] or ''}}">
+			</p>
+			<p>
+				Course Time Filter:
+				<input type="text" name="ctf" value="{{filter_strings[3] or ''}}">
+			</p>
+			<input type="submit" value="Submit">
+		</div>
 		
 		</form>
 	</body>

@@ -1,6 +1,7 @@
 # -*- coding: utf8 -*-
 import course
 import re
+from pyregex import course_range_re
 
 
 def tiemrange_filter(start, end, include_nons=False):  # start,end = (hh,mm)
@@ -58,27 +59,94 @@ def profname_filter(name):
     return res_filter
 
 
-def and_filter(filter1, filter2):
+def and_filter(*filters):
     def res_filter(cour):
-        return filter1(cour) and filter2(cour)
+        for filt in filters:
+            if not filt(cour):
+                return False
+        return True
     return res_filter
 
 
-def or_filter(filter1, filter2):
+def or_filter(*filters):
     def res_filter(cour):
-        return filter1(cour) or filter2(cour)
+        for filt in filters:
+            if filt(cour):
+                return True
+        return False
     return res_filter
 
 
-def orf(filter1, filter2):
-    return or_filter(filter1, filter2)
+def orf(*filters):
+    return or_filter(*filters)
 
 
-def andf(filter1, filter2):
-    return and_filter(filter1, filter2)
+def andf(*filters):
+    return and_filter(*filters)
 
 
 def not_filter(filter1):
     def res_filter(cour):
         return not filter1(cour)
     return res_filter
+
+
+def allways_true(course):
+    return True
+
+
+def allways_false(course):
+    return False
+
+
+def parse_dayfilter_string(string):
+    try:
+        days = string.split(',')
+        return day_filter([int(i) for i in days])
+    except Exception as e:
+        return allways_true
+
+
+def parse_timefilter_string(string):
+    try:
+        substrings = string.split(',')
+        timerange_filters = []
+        for substring in substrings:
+            m = re.match(course_range_re, substring)
+            starthour = int(m.group('starthour'))
+            startmin = int(m.group('startmin'))
+            endhour = int(m.group('endhour'))
+            endmin = int(m.group('endmin'))
+            temp_filter = tiemrange_filter(
+                (starthour, startmin), (endhour, endmin))
+            timerange_filters.append(temp_filter)
+        return or_filter(*timerange_filters)
+    except Exception as e:
+        return allways_true
+
+
+def parse_proffilter_string(string):
+    try:
+        substrings = string.split(',')
+        courprof_filters = []
+        for substring in substrings:
+            stripped = substring.strip()
+            temp_filter = profname_filter(stripped)
+            courprof_filters.append(temp_filter)
+        return or_filter(*courprof_filters)
+    except Exception as e:
+        return allways_true
+
+def parse_courfilter_string(string):
+    try:
+        substrings = string.split(',')
+        courprof_filters = []
+        for substring in substrings:
+            stripped = substring.strip()
+            temp_filter = coursename_filter(stripped)
+            courprof_filters.append(temp_filter)
+        return or_filter(*courprof_filters)
+    except Exception as e:
+        return allways_true
+
+
