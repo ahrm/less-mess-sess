@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, url_for
 from course import Course
 from course_filters import *
-from logtest import log23
+#from logtest import log23
 
 courses = Course.get_from_db()
 

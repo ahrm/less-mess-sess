@@ -2,7 +2,7 @@
 
 import myutils
 from database_manager import load_course_from_db, save_course_to_db
-from logtest import log23
+#from logtest import log23
 
 
 class ClassTime:

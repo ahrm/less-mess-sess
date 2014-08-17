@@ -84,8 +84,8 @@ if __name__ == '__main__':
     # print len(browser.find_by_xpath(course_element_xpath2))
     elems = browser.find_by_xpath(course_element_xpath2)
 
-    log = codecs.open('log.log', mode='w', encoding='utf8')
-    log2 = codecs.open('log2.log', mode='w', encoding='utf8')
+    #log = codecs.open('log.log', mode='w', encoding='utf8')
+    #log2 = codecs.open('log2.log', mode='w', encoding='utf8')
 
     courses = []
     sessions = []
