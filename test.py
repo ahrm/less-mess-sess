@@ -56,8 +56,9 @@ course_enrolled_xpath = '/html/body/form/table/tbody/tr[2]/td/table/tbody/\
 tr[2]/td/table/tbody/tr[4]/td/table/tbody/tr[5]/td[6]/div'
 
 departments = {'computer': 2,
-               'physics': 13}
-current_department = 'computer'
+               'physics': 13,
+               'tarbiat' : 43}
+current_department = 'tarbiat'
 
 if __name__ == '__main__':
 

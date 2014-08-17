@@ -8,7 +8,7 @@ courses = Course.get_from_db()
 app = Flask(__name__)
 
 selected_user_courses = {}
-departments = ['computer', 'physics']
+departments = ['computer', 'physics', 'tarbiat']
 
 
 # @app.route('/')
@@ -24,7 +24,8 @@ departments = ['computer', 'physics']
 def schedule():
     reqargs = request.args.getlist('clsl')
     selected_courses = Course.select_courses(courses, reqargs)
-    return render_template('schedule.html',selected_courses=selected_courses)
+    return render_template('schedule.html', selected_courses=selected_courses)
+
 
 @app.route('/')
 def handler():
@@ -33,9 +34,6 @@ def handler():
         return schedule()
     else:
         return test()
-
-
-
 
 
 @app.route('/test')
@@ -48,18 +46,21 @@ def test():
     prof_name_filter_string = request.args.get('pnf')
     course_day_filter_string = request.args.get('cdf')
     course_time_filter_string = request.args.get('ctf')
+    sex_filter_int = (request.args.get('jens') and int(request.args.get('jens'))) or 0
 
     dep_filter = department_filter(department_string)
     course_name_filter = parse_courfilter_string(course_name_filter_string)
     prof_name_filter = parse_proffilter_string(prof_name_filter_string)
     course_day_filter = parse_dayfilter_string(course_day_filter_string)
     course_time_filter = parse_timefilter_string(course_time_filter_string)
+    sex_filt = sex_filter(sex_filter_int)
 
     final_filter = and_filter(course_name_filter,
                               prof_name_filter,
                               course_day_filter,
                               course_time_filter,
-                              dep_filter)
+                              dep_filter,
+                              sex_filt)
 
     selected_courses = Course.select_courses(courses, reqargs)
     user = ''
@@ -78,7 +79,8 @@ def test():
                                            prof_name_filter_string,
                                            course_day_filter_string,
                                            course_time_filter_string,
-                                           department_string],
+                                           department_string,
+                                           sex_filter_int],
                            departments=departments)
 
 

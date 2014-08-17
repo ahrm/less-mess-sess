@@ -106,6 +106,33 @@ def always_true(course):
 def always_false(course):
     return False
 
+# 1 : male ,2 : female ,3 : not female ,4 : not male , 0 : all
+def sex_filter(num):
+    def res_filter(cour):
+        if num == 1:
+            if cour.allowed_sex == u'مرد':
+                return True
+            else:
+                return False
+        elif num == 2:
+            if cour.allowed_sex == u'زن':
+                return True
+            else:
+                return False
+        elif num == 3:
+            if cour.allowed_sex == u'زن':
+                return False
+            else:
+                return True
+        elif num == 4:
+            if cour.allowed_sex == u'مرد':
+                return False
+            else:
+                return True
+        else:
+            return True
+    return res_filter
+
 
 def parse_dayfilter_string(string):
     try:

@@ -5,6 +5,8 @@ table,td,th {
 
 th,td {
 	padding: 5px;
+	/*width: 1%;
+	height: 1%;*/
 }
 /*
 th:hover,td:hover {
@@ -31,15 +33,25 @@ th:hover,td:hover {
 }
 
 .danger{
-	background-color: #ff0000
+	background-color: #DE3737;
+}
+.danger:hover{
+	background-color: #DEBFC3;
 }
 
 .warning{
-	background-color: #aaaa00
+	background-color: #D3E322;
+}
+.warning:hover{
+	background-color: #EFF2BB;
 }
 
 .good{
-	background-color: #00ff00
+	background-color: #3B9C44;
+}
+
+.good:hover{
+	background-color: #A9C9AC;
 }
 
 .testclass{
@@ -51,4 +63,9 @@ th:hover,td:hover {
 	position: fixed;
 	left: 20px;
 	top: 0;
+}
+
+.sched{
+	width: 100%;
+	height: 100%;
 }
